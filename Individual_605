@@ -1,0 +1,129 @@
+# PR1_Tsipilyova-605
+<SCRIPT type="text/javascript"> 
+function toRoman() {
+ 
+ if (checkArabicInput()) {
+ 
+ num = document.form.input.value;
+ 
+ onesArray = new Array("I","II","III","IV","V","VI","VII","VIII","IX");
+ tensArray = new Array("X","XX","XXX","XL","L","LX","LXX","LXXX","XC");
+ hundredsArray = new Array("C","CC","CCC","CD","D","DC","DCC","DCCC","CM");
+ 
+ ones = num % 10;
+ num = (num - ones) / 10;
+ tens = num % 10;
+ num = (num - tens) / 10;
+ hundreds = num % 10;
+ num = (num - hundreds) / 10;
+ 
+ Roman = "";
+ 
+ for (i=0; i < num; i++){
+ Roman += "M";
+ }
+ 
+ if (hundreds) {
+ Roman += hundredsArray[hundreds-1];
+ }
+ 
+ if (tens) {
+ Roman += tensArray[tens-1];
+ }
+ 
+ if (ones) {
+ Roman += onesArray[ones-1];
+ }
+ 
+ document.form.newValue.value = Roman;
+ 
+ }
+}
+ 
+function toArabic () {
+ 
+ if (checkRomanInput()) {
+ 
+ num = document.form.input.value;
+ Arabic = 0;
+ var last_digit = 1000;
+ 
+ for (var i=0;i<num.length;i++) {
+ 
+ if (num.charAt(i) == "I"){var digit=1;}
+ if (num.charAt(i) == "V"){var digit=5;}
+ if (num.charAt(i) == "X"){var digit=10;}
+ if (num.charAt(i) == "L"){var digit=50;}
+ if (num.charAt(i) == "C"){var digit=100;}
+ if (num.charAt(i) == "D"){var digit=500;}
+ if (num.charAt(i) == "M"){var digit=1000;}
+ 
+ if (last_digit < digit) {Arabic -= 2 * last_digit;}
+ 
+ last_digit = digit;
+ Arabic += last_digit;
+ }
+ 
+ document.form.newValue.value = Arabic;
+ 
+ }
+}
+ 
+function checkArabicInput() {
+ var num = document.form.input.value
+ 
+ for (var k = 0; k < num.length; k++){
+ if (num.charAt(k) < "0" || num.charAt(k) > "9") {
+ alert("Вы ввели некорректные цифры. Введите положительное целое число!")
+ document.form.input.focus()
+ return false;
+ }
+ }
+ 
+ if (num > 4000) {
+ alert("Года больше 4000 не обрабатываются.");
+ return false;
+ }
+ 
+ if (num <= 0) {
+ alert("Введите число больше 0.");
+ return false;
+ }
+ return true;
+}
+ 
+function checkRomanInput() {
+ var num = document.form.input.value
+ 
+ for (var k = 0; k < num.length; k++){
+ if (num.charAt(k) != "I" &&
+ num.charAt(k) != "V" &&
+ num.charAt(k) != "X" &&
+ num.charAt(k) != "L" &&
+ num.charAt(k) != "C" &&
+ num.charAt(k) != "D" &&
+ num.charAt(k) != "M") {
+ alert("Извините, вы ввели неккоректое число");
+ return false;
+ }
+ }
+ return true;
+}
+ 
+ 
+</SCRIPT>
+
+<hr />
+<form name="form" action=" ">
+<b>Введите число или символы: </b><input type = "text" name="input">
+<br /><br />
+<input type = "button" value="Перевести в римские цифры" onClick="toRoman()">&nbsp;
+<input type = "button" value="Перевести в арабские цифры" onClick="toArabic()">
+<br /><br />
+<b> Результат: </b><input type = "text" name="newValue">
+</form>
+<hr />
+<br /><br />
+
+</td>
+</tr>
